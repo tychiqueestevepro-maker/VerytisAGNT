@@ -26,26 +26,39 @@ import {
   Users, 
   Info, 
   Mail,
-  ArrowRight
+  ArrowRight,
+  TrendingUp,
+  Building2,
+  Users2,
+  ShieldCheck
 } from "lucide-react";
 
 const navDropdowns: NavDropdown[] = [
   {
     label: "Solutions",
     items: [
-      { label: "Systèmes IA complets", description: "Pipelines intelligents bout en bout", href: "#solutions", icon: <Cpu className="h-4 w-4" /> },
-      { label: "Automatisation métier", description: "Flux automatisés sans intervention manuelle", href: "#fonctionnement", icon: <Zap className="h-4 w-4" /> },
-      { label: "Flux sur-mesure", description: "Adaptés à vos processus métier complexes", href: "#fonctionnement", icon: <Layers className="h-4 w-4" /> },
-      { label: "Traitement des données", description: "Qualification et structuration automatique", href: "#cas-usage", icon: <Database className="h-4 w-4" /> },
+      { label: "Agent End-to-End", description: "Exécution autonome complète d'un flux de travail", href: "/solutions/agent-end-to-end", icon: <Cpu className="h-4 w-4" /> },
+      { label: "Systèmes Multi-Agents", description: "Orchestration coordonnée de plusieurs agents", href: "/solutions/systemes-multi-agents", icon: <Layers className="h-4 w-4" /> },
+      { label: "Agents d'Extraction & Data", description: "Traitement et structuration intelligente de données", href: "/solutions/extraction-data", icon: <Database className="h-4 w-4" /> },
+      { label: "Infrastructure & Connecteurs", description: "Ponts haute performance vers vos outils métiers", href: "/solutions/infrastructure-connecteurs", icon: <Zap className="h-4 w-4" /> },
     ],
   },
   {
     label: "Cas d'usage",
     items: [
-      { label: "Acquisition", description: "Qualification et suivi des leads entrants", href: "/cas-d-usage/acquisition", icon: <Target className="h-4 w-4" /> },
-      { label: "Opérations", description: "Automatisations multi-étapes internes", href: "#cas-usage", icon: <Settings className="h-4 w-4" /> },
-      { label: "Data", description: "Traitement et structuration documentaire", href: "#cas-usage", icon: <FileText className="h-4 w-4" /> },
-      { label: "Support interne", description: "Assistants dédiés à vos opérations", href: "#cas-usage", icon: <Users className="h-4 w-4" /> },
+      { label: "Agent Sales & Acquisition", description: "Qualification et enrichissement CRM autonome", href: "#cas-usage", icon: <Target className="h-4 w-4" /> },
+      { label: "Agent Opérations & Logistique", description: "Suivi de chaîne et traitement administratif", href: "#cas-usage", icon: <Settings className="h-4 w-4" /> },
+      { label: "Agent Support & Client", description: "Résolution de problèmes et exécution 24/7", href: "#cas-usage", icon: <Users className="h-4 w-4" /> },
+      { label: "Agent RH & Administratif", description: "Analyse de profils et onboarding automatisé", href: "#cas-usage", icon: <FileText className="h-4 w-4" /> },
+    ],
+  },
+  {
+    label: "Pour qui",
+    items: [
+      { label: "Scale-ups & PME", description: "Scalez vos opérations sans friction", href: "/pour-qui/scale-ups-pme", icon: <TrendingUp className="h-4 w-4" /> },
+      { label: "Grands Groupes & ETI", description: "Modernisation agile de l'existant", href: "/pour-qui/grands-groupes-eti", icon: <Building2 className="h-4 w-4" /> },
+      { label: "Équipes Opérationnelles", description: "Libérez vos talents des tâches répétitives", href: "/pour-qui/equipes-operationnelles", icon: <Users2 className="h-4 w-4" /> },
+      { label: "DSI & Directions Data", description: "Contrôle, sécurité et transparence totale", href: "/pour-qui/dsi-data", icon: <ShieldCheck className="h-4 w-4" /> },
     ],
   },
   {
@@ -111,7 +124,8 @@ export default function SiteHeader() {
 
         {/* Desktop nav */}
         <nav className="hidden items-center gap-0.5 md:flex">
-          {navDropdowns.map((dropdown) => (
+          {/* Main Dropdowns except Enterprise */}
+          {navDropdowns.filter(d => d.label !== "Entreprise").map((dropdown) => (
             <div
               key={dropdown.label}
               className="relative"
@@ -132,10 +146,10 @@ export default function SiteHeader() {
                 onMouseEnter={() => openDropdown(dropdown.label)}
                 onMouseLeave={scheduleClose}
               >
-                <div className="min-w-[320px] overflow-hidden rounded-none border border-white/10 bg-black shadow-[0_30px_80px_rgba(0,0,0,0.9)]">
+                <div className={`${dropdown.label === "Pour qui" ? "min-w-[540px]" : "min-w-[320px]"} overflow-hidden rounded-none border border-white/10 bg-black shadow-[0_30px_80px_rgba(0,0,0,0.9)]`}>
                   <div className="p-2">
-                    {/* Single Column List */}
-                    <div className="flex flex-col gap-1">
+                    {/* List Grid - Conditional Columns */}
+                    <div className={`grid gap-1 ${dropdown.label === "Pour qui" ? "grid-cols-2" : "grid-cols-1"}`}>
                       {dropdown.items.map((item) => (
                         <a
                           key={item.label}
@@ -157,8 +171,8 @@ export default function SiteHeader() {
                   
                   {/* Dropdown CTA Footer */}
                   <div className="bg-white/[0.03] px-6 py-5 border-t border-white/5">
-                    <div className="flex flex-col gap-4">
-                      <p className="text-xs text-white/40 text-center">
+                    <div className={`flex items-center justify-between gap-6 ${dropdown.label === "Pour qui" ? "flex-row" : "flex-col gap-4 text-center"}`}>
+                      <p className="text-xs text-white/40">
                         Besoin d'un système sur-mesure ?
                       </p>
                       <a 
@@ -176,6 +190,7 @@ export default function SiteHeader() {
             </div>
           ))}
 
+          {/* Simple Links */}
           {simpleLinks.map((item) => (
             <a
               key={item.href}
@@ -184,6 +199,54 @@ export default function SiteHeader() {
             >
               {item.label}
             </a>
+          ))}
+
+          {/* Enterprise Dropdown (Last) */}
+          {navDropdowns.filter(d => d.label === "Entreprise").map((dropdown) => (
+            <div
+              key={dropdown.label}
+              className="relative"
+              onMouseEnter={() => openDropdown(dropdown.label)}
+              onMouseLeave={scheduleClose}
+            >
+              <button className="flex items-center gap-1.5 rounded-lg px-3 py-2.5 text-sm text-white/58 transition-colors duration-200 hover:text-white">
+                {dropdown.label}
+                <ChevronIcon open={activeDropdown === dropdown.label} />
+              </button>
+
+              <div
+                className={`absolute right-0 top-full pt-2 transition-all duration-200 ${
+                  activeDropdown === dropdown.label
+                    ? "pointer-events-auto translate-y-0 opacity-100"
+                    : "pointer-events-none -translate-y-1.5 opacity-0"
+                }`}
+                onMouseEnter={() => openDropdown(dropdown.label)}
+                onMouseLeave={scheduleClose}
+              >
+                <div className="min-w-[320px] overflow-hidden rounded-none border border-white/10 bg-black shadow-[0_30px_80px_rgba(0,0,0,0.9)]">
+                  <div className="p-2">
+                    <div className="flex flex-col gap-1">
+                      {dropdown.items.map((item) => (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          className="flex items-start gap-4 rounded-none px-4 py-3.5 transition-all duration-200 hover:bg-white/[0.04] group"
+                          onClick={() => setActiveDropdown(null)}
+                        >
+                          <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-none border border-white/10 bg-white/5 text-white/40 transition-all duration-300 group-hover:border-violet-500/50 group-hover:bg-violet-500/10 group-hover:text-violet-400">
+                            {item.icon}
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            <span className="text-sm font-semibold text-white transition-colors group-hover:text-violet-400">{item.label}</span>
+                            <span className="text-[11px] leading-relaxed text-white/30 group-hover:text-white/50">{item.description}</span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </nav>
 

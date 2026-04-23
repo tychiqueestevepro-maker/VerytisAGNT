@@ -48,3 +48,26 @@ body {
   50%       { opacity: 0.35; }
 }
 .animate-pulse-dot { animation: pulse-dot 2.4s ease-in-out infinite; }
+
+/* ── Kinetic Timeline ── */
+@keyframes flow-vertical {
+  0%   { top: -10%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 110%; opacity: 0; }
+}
+.animate-flow-vertical { animation: flow-vertical 4s linear infinite; }
+
+@keyframes orbit-1 {
+  0%   { transform: rotate(0deg) translateX(12px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(12px) rotate(-360deg); }
+}
+.animate-orbit-1 { animation: orbit-1 3s linear infinite; }
+
+@keyframes orbit-2 {
+  0%   { transform: rotate(180deg) translateX(12px) rotate(-180deg); }
+  100% { transform: rotate(540deg) translateX(12px) rotate(-540deg); }
+}
+.animate-orbit-2 { animation: orbit-2 3s linear infinite; }
+
+

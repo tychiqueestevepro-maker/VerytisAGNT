@@ -126,17 +126,17 @@ export default function DirectImpact() {
 
   // Mock terminal data
   const terminalData = [
-    "INIT_SYSTEM_V2.0.4...",
+    "INIT_AGENT_IA_V2.0.4...",
     "CONNECTING_FLUX_GATEWAY...",
     "RECEIVING_ENCRYPTED_STREAM [24.5GB/s]",
-    "DECRYPTING_PACKETS...",
+    "ANALYZING_CORE_INTENT...",
     "PARSING_METADATA...",
     "MAPPING_SIGNALS...",
     "VALIDATING_SCHEMA...",
     "EXTRACTING_INTENT...",
-    "HEURISTIC_ANALYSIS_RUNNING...",
+    "AGENT_IA_HEURISTIC_ANALYSIS...",
     "MATCH_FOUND_SIG_4829",
-    "RE-ROUTING_TO_CORE_ENGINE...",
+    "AGENT_IA_EXECUTION_CORE...",
   ];
 
   return (
@@ -148,11 +148,11 @@ export default function DirectImpact() {
           {/* Left: Text Content */}
           <div className="flex flex-col gap-8">
             <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl leading-[1.1]">
-              Impact Direct sur vos <span className="text-white">Flux Métier</span>
+              L'Agent IA au cœur de vos <span className="text-white">Flux Métier</span>
             </h2>
             
             <p className="text-lg text-white/60 max-w-md leading-relaxed">
-              Une infrastructure qui ne se contente pas de répondre, mais qui s'adapte, traite et exécute vos flux critiques avec une précision et une autonomie totale.
+              Un Agent IA qui ne se contente pas de répondre, mais qui s'adapte, traite et exécute vos flux critiques avec une précision et une autonomie totale.
             </p>
 
             <div className="flex flex-col gap-4 mt-4">

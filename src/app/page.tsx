@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import LivingSystemHero from "@/components/LivingSystemHero";
 import GlassStrataSystem from "@/components/GlassStrataSystem";
 import DirectImpact from "@/components/DirectImpact";
+import ForWhom from "@/components/ForWhom";
 
 /* ─── DATA ─────────────────────────────────────────────────────────────── */
 
@@ -167,7 +168,7 @@ export default function Home() {
           <div className="relative">
 
             <h2 className="mx-auto mt-5 max-w-[700px] text-4xl font-semibold leading-[1.08] tracking-[-0.04em] text-white sm:text-5xl">
-              Automatisez vos flux critiques dès aujourd'hui
+              Déployez vos Agents IA dès aujourd'hui
             </h2>
             <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <Link

@@ -30,12 +30,12 @@ export default function LivingSystemHero() {
 
           {/* Headline */}
           <h1 className="text-[2.6rem] font-semibold leading-[1.1] tracking-[-0.02em] text-white sm:text-[3.4rem] lg:text-[4.2rem]">
-            Automatisez votre activité sans complexité
+            Déployez vos Agents IA autonomes
           </h1>
 
           {/* Subtitle */}
           <p className="mt-6 max-w-[540px] text-lg leading-8 text-white/70">
-            Des systèmes qui organisent, traitent et exécutent pour vous
+            Une infrastructure d'Agents intelligents qui organisent, traitent et exécutent vos flux métier pour vous.
           </p>
 
           {/* CTAs */}
