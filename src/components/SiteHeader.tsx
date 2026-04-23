@@ -124,7 +124,7 @@ export default function SiteHeader() {
               </button>
 
               <div
-                className={`absolute left-0 top-full pt-2 transition-all duration-200 ${
+                className={`absolute left-1/2 top-full -translate-x-1/2 pt-2 transition-all duration-200 ${
                   activeDropdown === dropdown.label
                     ? "pointer-events-auto translate-y-0 opacity-100"
                     : "pointer-events-none -translate-y-1.5 opacity-0"
@@ -216,12 +216,12 @@ export default function SiteHeader() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="border-t border-white/8 bg-black/95 md:hidden">
-          <div className="px-6 py-3">
+        <div className="border-t border-white/8 bg-black md:hidden">
+          <div className="px-6 py-6 overflow-y-auto max-h-[80vh]">
             {navDropdowns.map((dropdown) => (
-              <div key={dropdown.label} className="border-b border-white/8">
+              <div key={dropdown.label} className="mb-4">
                 <button
-                  className="flex w-full items-center justify-between py-3.5 text-sm font-medium text-white"
+                  className="flex w-full items-center justify-between py-2 text-xs font-bold uppercase tracking-widest text-white/30"
                   onClick={() =>
                     setMobileExpanded(mobileExpanded === dropdown.label ? null : dropdown.label)
                   }
@@ -229,38 +229,41 @@ export default function SiteHeader() {
                   {dropdown.label}
                   <ChevronIcon open={mobileExpanded === dropdown.label} />
                 </button>
-                {mobileExpanded === dropdown.label && (
-                  <div className="pb-3 pl-3">
-                    {dropdown.items.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        className="block py-2.5 text-sm text-white/50 hover:text-white"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
+                <div className={`mt-2 flex flex-col gap-1 transition-all ${mobileExpanded === dropdown.label ? "block" : "hidden"}`}>
+                  {dropdown.items.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="flex items-center gap-4 rounded-none py-3"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center border border-white/10 bg-white/5 text-white/40">
+                        {item.icon}
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-sm font-medium text-white">{item.label}</span>
+                        <span className="text-[10px] text-white/30">{item.description}</span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
             ))}
 
-            {simpleLinks.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="block border-b border-white/8 py-3.5 text-sm font-medium text-white"
-                onClick={() => setMobileOpen(false)}
-              >
-                {item.label}
-              </a>
-            ))}
-
-            <div className="py-4">
+            <div className="mt-8 flex flex-col gap-4">
+              {simpleLinks.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium text-white"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ))}
               <Link
                 href="/offre-devis"
-                className="block rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-center text-sm font-bold text-white backdrop-blur-md active:scale-[0.98]"
+                className="mt-4 block rounded-none border border-white/20 bg-white/10 px-4 py-4 text-center text-sm font-bold text-white backdrop-blur-md"
                 onClick={() => setMobileOpen(false)}
               >
                 Book demo
