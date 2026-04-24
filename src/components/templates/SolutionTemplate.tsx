@@ -1,12 +1,15 @@
+"use client";
+
 import React from "react";
-import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import DemoButton from "@/components/ui/DemoButton";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface SolutionTemplateProps {
   title: string;
   subtitle: string;
   description: string;
-  features: {
+  features?: {
     title: string;
     description: string;
     image?: string;
@@ -16,6 +19,7 @@ interface SolutionTemplateProps {
     text: string;
   }[];
   heroVisual?: React.ReactNode;
+  footerSection?: React.ReactNode;
   ctaText?: string;
 }
 
@@ -23,11 +27,15 @@ export default function SolutionTemplate({
   title,
   subtitle,
   description,
-  features,
+  features = [],
   processSteps,
   heroVisual,
-  ctaText = "Démarrer mon projet",
+  footerSection,
+  ctaText,
 }: SolutionTemplateProps) {
+  const { language, t } = useLanguage();
+  const defaultCta = ctaText || t("nav.book_demo");
+
   return (
     <div className="bg-black min-h-screen pt-32 pb-20 overflow-hidden">
       {/* Background Glow */}
@@ -48,13 +56,11 @@ export default function SolutionTemplate({
               {description}
             </p>
             <div className="mt-12 flex gap-4">
-              <Link
-                href="/offre-devis"
-                className="group flex items-center justify-center rounded-full bg-white text-black px-8 py-4 text-sm font-bold transition-all hover:bg-violet-400 hover:text-white"
-              >
-                {ctaText}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+              <DemoButton
+                label={defaultCta}
+                variant="ghost"
+                icon={<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />}
+              />
             </div>
           </div>
 
@@ -67,13 +73,19 @@ export default function SolutionTemplate({
                   <div className="w-2/3 h-2/3 border border-violet-500/20 rounded-full animate-pulse" />
                   <div className="absolute w-1/2 h-1/2 border border-violet-500/40 rounded-full animate-pulse delay-75" />
                   <div className="absolute w-1/3 h-1/3 bg-violet-500/20 blur-2xl rounded-full" />
-                  <span className="relative text-xs font-mono text-violet-300 tracking-tighter uppercase opacity-50">Autonome</span>
+                  <span className="relative text-xs font-mono text-violet-300 tracking-tighter uppercase opacity-50">
+                    {language === "FR" ? "Autonome" : "Autonomous"}
+                  </span>
                 </div>
                 <div className="absolute bottom-8 left-8 right-8 p-6 bg-black/40 backdrop-blur-md border border-white/5">
-                    <p className="text-[10px] text-white/30 uppercase tracking-[0.2em] mb-2">Statut en direct</p>
+                    <p className="text-[10px] text-white/30 uppercase tracking-[0.2em] mb-2">
+                      {language === "FR" ? "Statut en direct" : "Live Status"}
+                    </p>
                     <div className="flex items-center gap-3">
                         <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
-                        <span className="text-sm text-white/80 font-medium italic">Traitement du flux opérationnel...</span>
+                        <span className="text-sm text-white/80 font-medium italic">
+                          {language === "FR" ? "Traitement du flux opérationnel..." : "Processing operational flow..."}
+                        </span>
                     </div>
                 </div>
               </div>
@@ -167,8 +179,12 @@ export default function SolutionTemplate({
             ))}
           </div>
         </div>
+
+        {/* Optional footer section (e.g. IntegrationArch, CaseStudySection) */}
+        {footerSection && (
+          <div className="mt-32">{footerSection}</div>
+        )}
       </div>
     </div>
   );
 }
-

@@ -3,10 +3,12 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function DirectImpact() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const windowRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -148,19 +150,15 @@ export default function DirectImpact() {
           {/* Left: Text Content */}
           <div className="flex flex-col gap-8">
             <h2 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl leading-[1.1]">
-              L'Agent IA au cœur de vos <span className="text-white">Flux Métier</span>
+              {t("home.impact_title")}
             </h2>
             
             <p className="text-lg text-white/60 max-w-md leading-relaxed">
-              Un Agent IA qui ne se contente pas de répondre, mais qui s'adapte, traite et exécute vos flux critiques avec une précision et une autonomie totale.
+              {t("home.impact_desc")}
             </p>
 
             <div className="flex flex-col gap-4 mt-4">
-              {[
-                "Capture instantanée des signaux",
-                "Arbitrage logique autonome",
-                "Exécution sans latence"
-              ].map((item, i) => (
+              {t("home.impact_list").map((item: string, i: number) => (
                 <div key={i} className="flex items-center gap-3 text-sm text-white/40">
                   <div className="h-[1px] w-4 bg-violet-500/30" />
                   {item}
@@ -199,7 +197,7 @@ export default function DirectImpact() {
                   ))}
                   <div className="terminal-final opacity-0 mt-6 text-base font-bold text-white tracking-tight flex items-center gap-2">
                     <span className="text-violet-500">{`> `}</span>
-                    QUALIFICATION DES DONNÉES ENTRANTES
+                    {t("home.terminal_status")}
                     <span className="h-4 w-2 bg-white/80 animate-pulse" />
                   </div>
                 </div>
@@ -216,13 +214,13 @@ export default function DirectImpact() {
                   <div className="rule-block relative overflow-hidden bg-white/5 border border-white/10 p-5 rounded-xl backdrop-blur-md shadow-2xl">
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
                     <div className="text-violet-400 text-[10px] mb-2 tracking-[0.3em] font-bold">PROTOCOL_ALPHA</div>
-                    <div className="text-white text-base font-sans">{`Application des règles métier`}</div>
+                    <div className="text-white text-base font-sans">{t("home.rules_biz")}</div>
                   </div>
 
                   <div className="rule-block relative overflow-hidden bg-white/5 border border-white/10 p-5 rounded-xl backdrop-blur-md self-end shadow-2xl">
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
                     <div className="text-purple-400 text-[10px] mb-2 tracking-[0.3em] font-bold text-right">ORCHESTRATOR_BETA</div>
-                    <div className="text-white text-base font-sans">{`Priorisation intelligente`}</div>
+                    <div className="text-white text-base font-sans">{t("home.rules_prior")}</div>
                   </div>
                 </div>
 
@@ -253,7 +251,7 @@ export default function DirectImpact() {
                     </div>
                   ))}
                   <div className="dash-final opacity-0 col-span-4 mt-8 text-center text-base font-bold text-white tracking-[0.05em] drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
-                    {`> EXÉCUTION DÉCLENCHÉE. SUIVI CONTINU..`}
+                    {`> `} {t("home.terminal_final")}
                   </div>
                 </div>
 

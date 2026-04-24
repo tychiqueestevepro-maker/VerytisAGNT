@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import DemoButton from "@/components/ui/DemoButton";
 
 type Cell = {
   id: number;
@@ -418,13 +419,12 @@ export default function Hero() {
           </p>
 
           <div className="hero-copy mt-12 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-            <Link
-              href="/offre-devis"
-              className="group inline-flex items-center gap-3 rounded-full border border-blue-300/20 bg-white/[0.03] px-6 py-3 text-sm font-medium text-white shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_18px_50px_rgba(2,6,23,0.55)] transition-all duration-500 hover:border-blue-300/40 hover:bg-blue-400/[0.08] hover:shadow-[0_0_32px_rgba(59,130,246,0.16),0_18px_60px_rgba(2,6,23,0.62)]"
-            >
-              Book demo
-              <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
-            </Link>
+            <DemoButton
+              label="Book demo"
+              variant="primary"
+              className="!rounded-full !border-blue-300/20 !bg-white/[0.03] !px-6 !py-3 !shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_18px_50px_rgba(2,6,23,0.55)] hover:!border-blue-300/40 hover:!bg-blue-400/[0.08] hover:!shadow-[0_0_32px_rgba(59,130,246,0.16),0_18px_60px_rgba(2,6,23,0.62)]"
+              icon={<ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />}
+            />
 
             <Link
               href="/cas-d-usage/acquisition"

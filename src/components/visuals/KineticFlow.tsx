@@ -23,14 +23,14 @@ export default function KineticFlow() {
     const coreHeight = h * 0.4;
 
     class Particle {
-      x: number;
-      y: number;
-      size: number;
-      speed: number;
-      color: string;
-      shape: 'circle' | 'square' | 'triangle';
-      opacity: number;
-      progress: number; // 0 to 1
+      x!: number;
+      y!: number;
+      size!: number;
+      speed!: number;
+      color!: string;
+      shape!: 'circle' | 'square' | 'triangle';
+      opacity!: number;
+      progress!: number; // 0 to 1
 
       constructor() {
         this.reset();
@@ -79,25 +79,26 @@ export default function KineticFlow() {
       }
 
       draw() {
-        ctx.save();
-        ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = this.color;
-        ctx.shadowBlur = this.x > coreX - coreWidth ? 15 : 0;
-        ctx.shadowColor = this.color;
+        const c = ctx!;
+        c.save();
+        c.globalAlpha = this.opacity;
+        c.fillStyle = this.color;
+        c.shadowBlur = this.x > coreX - coreWidth ? 15 : 0;
+        c.shadowColor = this.color;
 
-        ctx.beginPath();
+        c.beginPath();
         if (this.shape === 'circle') {
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         } else if (this.shape === 'square') {
-          ctx.rect(this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
+          c.rect(this.x - this.size, this.y - this.size, this.size * 2, this.size * 2);
         } else {
-          ctx.moveTo(this.x, this.y - this.size);
-          ctx.lineTo(this.x + this.size, this.y + this.size);
-          ctx.lineTo(this.x - this.size, this.y + this.size);
+          c.moveTo(this.x, this.y - this.size);
+          c.lineTo(this.x + this.size, this.y + this.size);
+          c.lineTo(this.x - this.size, this.y + this.size);
         }
-        ctx.closePath();
-        ctx.fill();
-        ctx.restore();
+        c.closePath();
+        c.fill();
+        c.restore();
       }
     }
 

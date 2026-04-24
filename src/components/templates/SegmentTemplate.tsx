@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import DemoButton from "@/components/ui/DemoButton";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface SegmentTemplateProps {
   title: string;
@@ -15,8 +18,12 @@ export default function SegmentTemplate({
   subtitle,
   description,
   benefits,
-  ctaText = "Book demo",
+  ctaText,
 }: SegmentTemplateProps) {
+  const { language, t } = useLanguage();
+  
+  const defaultCta = ctaText || t("nav.book_demo");
+
   return (
     <div className="bg-black min-h-screen pt-32 pb-20">
       <div className="mx-auto max-w-[1000px] px-6 sm:px-10">
@@ -31,20 +38,22 @@ export default function SegmentTemplate({
             {description}
           </p>
           <div className="mt-10">
-            <Link
-              href="/offre-devis"
-              className="inline-flex items-center justify-center rounded-xl bg-white/10 border border-white/20 px-10 py-4 text-sm font-bold text-white backdrop-blur-md shadow-2xl transition-all duration-300 hover:bg-white/20 active:scale-[0.98]"
-            >
-              {ctaText}
-            </Link>
+            <DemoButton
+              label={defaultCta}
+              variant="primary"
+            />
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-20 border-t border-white/5 pt-20">
           <div>
-            <h2 className="text-2xl font-semibold text-white mb-6">Pourquoi choisir Verytis ?</h2>
+            <h2 className="text-2xl font-semibold text-white mb-6">
+              {language === "FR" ? "Pourquoi choisir Verytis ?" : "Why choose Verytis?"}
+            </h2>
             <p className="text-white/50 leading-relaxed">
-              Nos agents ne sont pas de simples chatbots. Ce sont des travailleurs numériques autonomes conçus pour s'intégrer à votre infrastructure existante et exécuter des tâches complexes avec une précision absolue.
+              {language === "FR" 
+                ? "Nos agents ne sont pas de simples chatbots. Ce sont des travailleurs numériques autonomes conçus pour s'intégrer à votre infrastructure existante et exécuter des tâches complexes avec une précision absolue."
+                : "Our agents are not just simple chatbots. They are autonomous digital workers designed to integrate into your existing infrastructure and execute complex tasks with absolute precision."}
             </p>
           </div>
           <div className="space-y-6">
