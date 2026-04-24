@@ -5,6 +5,7 @@ import SiteHeader from "@/components/layout/SiteHeader";
 import "./globals.css";
 import { headers } from "next/headers";
 import { translations } from "@/lib/translations";
+import { Analytics } from "@vercel/analytics/react";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
@@ -59,6 +60,7 @@ export default async function RootLayout({
           <SiteHeader />
           <main>{children}</main>
           <SiteFooter />
+          <Analytics />
         </LanguageProvider>
       </body>
     </html>
