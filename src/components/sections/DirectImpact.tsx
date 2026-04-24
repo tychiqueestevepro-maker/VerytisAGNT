@@ -9,6 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function DirectImpact() {
   const { t } = useLanguage();
+  const [mounted, setMounted] = React.useState(false);
+  const [dashData, setDashData] = React.useState<{width: string, value: string}[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const windowRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -16,6 +18,12 @@ export default function DirectImpact() {
   const dashboardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
+    setDashData([...Array(12)].map(() => ({
+      width: `${Math.random() * 80 + 20}%`,
+      value: (Math.random() * 100).toFixed(1)
+    })));
+
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
@@ -241,10 +249,12 @@ export default function DirectImpact() {
                            <div className="h-1 w-12 bg-white/5 rounded overflow-hidden">
                               <div 
                                 className="h-full bg-violet-500/40 animate-[pulse_2s_ease-in-out_infinite]" 
-                                style={{ width: `${Math.random() * 80 + 20}%` }} 
+                                style={{ width: dashData[i]?.width || "50%" }} 
                               />
                            </div>
-                           <div className="text-[8px] font-mono text-violet-400/50">{(Math.random() * 100).toFixed(1)}%</div>
+                           <div className="text-[8px] font-mono text-violet-400/50">
+                             {dashData[i]?.value || "0.0"}%
+                           </div>
                         </div>
                         <div className="h-1 w-full bg-white/5 rounded" />
                       </div>
